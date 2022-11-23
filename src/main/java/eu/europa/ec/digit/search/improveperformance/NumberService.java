@@ -41,7 +41,29 @@ public class NumberService {
 
     public Integer findSmallestDuplicateImproved(List<Integer> data) {
         
-        throw new UnsupportedOperationException("Not implemented.");
+        Integer smallestDuplicatedValue = Integer.MAX_VALUE;
+    	log.info("-- findSmallestDuplicateImproved --");
+        for (int i = 0; i < data.size()/2; i++) {           
+            	
+            	int pos = data.get(i) % data.size();
+            	int stamp = data.get(pos) + data.size();
+            	if (stamp > data.size()*2) {
+            		if (pos<smallestDuplicatedValue.intValue()) { smallestDuplicatedValue = pos; }
+            	}
+            	data.set(pos, stamp);
+            	
+            	pos = data.get(data.size()-1-i) % data.size();
+            	stamp = data.get(pos) + data.size();
+            	if (stamp > data.size()*2) {
+            		if (pos<smallestDuplicatedValue.intValue()) { smallestDuplicatedValue = pos; }
+            	}
+            	data.set(pos, stamp);
+            	
+        }
+        log.info("smallestDuplicatedValue retuned value: {}",smallestDuplicatedValue);
+        if (smallestDuplicatedValue>SAMPLE_SIZE) { smallestDuplicatedValue = null;}
+        
+        return smallestDuplicatedValue;
 
     }
 
